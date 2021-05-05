@@ -1929,6 +1929,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"pretty-bytes@npm:^5.6.0":
+  version: 5.6.0
+  resolution: "pretty-bytes@npm:5.6.0"
+  checksum: 2a2db3daaee5c7271dbc68cc875118f4e2b6697e9e4e73b4ea5d5639f50cff2c1f1f7db4775119974eff86fdbd1fac2a5d9f16bc41d90626821a9f6a0e6e26cf
+  languageName: node
+  linkType: hard
+
 "pretty-ms@npm:^7.0.1":
   version: 7.0.1
   resolution: "pretty-ms@npm:7.0.1"
@@ -2171,6 +2178,7 @@ fsevents@~2.3.1:
     "@types/react": ^17.0.0
     "@types/react-dom": ^17.0.0
     "@vercel/node": 1.8.3
+    pretty-bytes: ^5.6.0
     react: experimental
     react-dom: experimental
     react-router-dom: ^6.0.0-beta.0

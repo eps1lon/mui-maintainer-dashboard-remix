@@ -19,7 +19,7 @@ jobs:
           yarn
           yarn run build
         env:
-          REMIX_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
+          REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
 
       - name: Deploy Preview
         uses: amondnet/vercel-action@v20

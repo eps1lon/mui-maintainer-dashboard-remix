@@ -199,7 +199,6 @@ interface AppData {
 export let loader: LoaderFunction = async ({ params }) => {
   // TODO: validate input
   const buildNumber = +params.buildNumber;
-  console.log(buildNumber);
 
   const [testProfiles, testProfileDetails] = await Promise.all([
     fetchTestProfiles(buildNumber),

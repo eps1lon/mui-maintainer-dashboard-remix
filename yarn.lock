@@ -1707,10 +1707,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/build-utils@npm:2.10.1":
-  version: 2.10.1
-  resolution: "@vercel/build-utils@npm:2.10.1"
-  checksum: fa265dc3d29dd3b36d6618f2f32cddce9f4149d2bcdbe0756332ea5026028a10609fb38efebd3dbeb44508f893c2bf68f3ddb959fa4320c06fe7ec5a955d3e9e
+"@vercel/build-utils@npm:2.10.2":
+  version: 2.10.2
+  resolution: "@vercel/build-utils@npm:2.10.2"
+  checksum: 872da744593d5c170cb358f6e132f9209bf2ba00c4b5ef7bf82516a9057310bcb17956313eacff003c182b32c26675a2d844582632604dc358c1a583da900214
   languageName: node
   linkType: hard
 
@@ -1718,6 +1718,17 @@ __metadata:
   version: 1.2.2
   resolution: "@vercel/go@npm:1.2.2"
   checksum: a5d058024c0079bd712fc6b8d28b43f3023c8750192a06f739d59a81d53a9928f3f679e7b3a0e1abcbfc950a4a0acc590409d752cc623c7b593896b71be077a0
+  languageName: node
+  linkType: hard
+
+"@vercel/node@npm:1.10.0":
+  version: 1.10.0
+  resolution: "@vercel/node@npm:1.10.0"
+  dependencies:
+    "@types/node": "*"
+    ts-node: 8.9.1
+    typescript: 3.9.3
+  checksum: 9ab1f5464a9e50290523c644f81111fb5fd8d2bc05047e4555c1ebc5b18b4e407a84c7b54571563b9b1e370cfc40ac9a7fd18a59e4e95ff5adb88bbb5726ad99
   languageName: node
   linkType: hard
 
@@ -1729,17 +1740,6 @@ __metadata:
     ts-node: 8.9.1
     typescript: 3.9.3
   checksum: 3eaada512d2a7fc6443ce9f4295373f2c6b696dd08bcb279fe7a9a5591e6521518c191a067a1f73124840992c30225cbab5a3421dbc6d9e4398918defcc4ed35
-  languageName: node
-  linkType: hard
-
-"@vercel/node@npm:1.9.1":
-  version: 1.9.1
-  resolution: "@vercel/node@npm:1.9.1"
-  dependencies:
-    "@types/node": "*"
-    ts-node: 8.9.1
-    typescript: 3.9.3
-  checksum: 4daae2b5ee95ba083372b2f1f40e49c55d267b2b0b1cf0b86a16f218728cc50b1b0554e7747d951bbf220b4a47d606c9ccc4e9d5a007ceb61346eada5ef4f85c
   languageName: node
   linkType: hard
 
@@ -5198,7 +5198,7 @@ fsevents@~2.3.1:
     react-dom: experimental
     react-router-dom: ^6.0.0-beta.0
     typescript: ^4.1.2
-    vercel: ^21.2.2
+    vercel: ^22.0.1
   languageName: unknown
   linkType: soft
 
@@ -6275,20 +6275,20 @@ typescript@^4.1.2:
   languageName: node
   linkType: hard
 
-"vercel@npm:^21.2.2":
-  version: 21.3.3
-  resolution: "vercel@npm:21.3.3"
+"vercel@npm:^22.0.1":
+  version: 22.0.1
+  resolution: "vercel@npm:22.0.1"
   dependencies:
-    "@vercel/build-utils": 2.10.1
+    "@vercel/build-utils": 2.10.2
     "@vercel/go": 1.2.2
-    "@vercel/node": 1.9.1
+    "@vercel/node": 1.10.0
     "@vercel/python": 2.0.1
     "@vercel/ruby": 1.2.6
     update-notifier: 4.1.0
   bin:
     vc: dist/index.js
     vercel: dist/index.js
-  checksum: 92f951471db679284581938e8ed6092b8e7279ba71dc9af83e69fb2bfd71a4b4f4c50eca1cddcbda98c14801be7e6d8a37417e7bfb4241b21db7391854ab34d3
+  checksum: d2d01c40db046a3bafab65700b92c5247f48b03be4e31af119a4d7c06dc50f1e21227cf144a1ab3c8f9e3c4cddc2322375e506d3250e66b80f779779c82b7781
   languageName: node
   linkType: hard
 

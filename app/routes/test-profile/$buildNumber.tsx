@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
-import type { LoaderFunction, MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { useRouteData } from "@remix-run/react";
+import type { LoaderFunction, MetaFunction } from "remix";
+import { json, useRouteData } from "remix";
 
 interface ProfilerReport {
   phase: "mount" | "update";

@@ -2,7 +2,10 @@ import { Fragment, useContext } from "react";
 import type { LoaderFunction, MetaFunction } from "remix";
 import { json, Link, useRouteData } from "remix";
 import { Context } from "../../../../components/TestProfileContext";
-import type { ProfilerReport } from "../../../../components/TestProfileContext";
+import type {
+  ProfilerReport,
+  TestProfileData,
+} from "../../../../components/TestProfileContext";
 
 interface AppData {
   testId: string;
@@ -17,10 +20,13 @@ export let loader: LoaderFunction = async ({ params }) => {
 };
 
 export let meta: MetaFunction = (args) => {
-  console.log(args.parentsData);
+  const { params, parentsData } = args;
+  const { testProfileDetails }: TestProfileData = parentsData[
+    "routes/test-profile/$buildNumber"
+  ];
 
   return {
-    title: ``,
+    title: `${testProfileDetails.label}: ${params.testId}`,
   };
 };
 
@@ -48,7 +54,6 @@ function ProfilerInteractions(props: {
       /^([^:]+):(\d+):\d+ \(([^)]+)\)$/
     );
     if (traceByStackMatch === null) {
-      console.log(interaction.name);
       const unknownLineMatch = interaction.name.match(
         /^unknown line \(([^)]+)\)$/
       );

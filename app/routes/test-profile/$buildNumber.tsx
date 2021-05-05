@@ -1,22 +1,13 @@
-import React, { Fragment } from "react";
+import React, { createContext, Fragment } from "react";
+import { Outlet } from "react-router-dom";
 import type { LoaderFunction, MetaFunction } from "remix";
 import { json, useRouteData } from "remix";
-
-interface ProfilerReport {
-  phase: "mount" | "update";
-  actualDuration: number;
-  baseDuration: number;
-  startTime: number;
-  commitTime: number;
-  interactions: { id: number; name: string }[];
-}
-
-interface TestProfile {
-  browserName: string;
-  profile: Record<string, ProfilerReport[]>;
-  timestamp: number;
-}
-type TestProfiles = TestProfile[];
+import { Context } from "../../components/TestProfileContext";
+import type {
+  TestProfileData,
+  TestProfileDetails,
+  TestProfiles,
+} from "../../components/TestProfileContext";
 
 function Heading({
   children,
@@ -151,13 +142,6 @@ async function fetchTestProfileArtifactsInfos(
     );
 }
 
-interface TestProfileDetails {
-  codeUrl: string;
-  label: string;
-  reviewUrl: string;
-  webUrl: string;
-}
-
 async function fetchTestProfileDetails(
   buildNumber: number
 ): Promise<TestProfileDetails> {
@@ -176,7 +160,7 @@ async function fetchTestProfiles(buildNumber: number): Promise<TestProfiles> {
   const infos = await fetchTestProfileArtifactsInfos(buildNumber);
   return Promise.all(
     infos.map(
-      async (info): Promise<TestProfile> => {
+      async (info): Promise<TestProfiles[0]> => {
         const response = await fetch(info.url);
         const testProfileArtifact = await response.json();
 
@@ -190,11 +174,7 @@ async function fetchTestProfiles(buildNumber: number): Promise<TestProfiles> {
   );
 }
 
-interface AppData {
-  buildNumber: number;
-  testProfileDetails: TestProfileDetails;
-  testProfiles: TestProfiles;
-}
+type AppData = TestProfileData;
 
 export let loader: LoaderFunction = async ({ params }) => {
   // TODO: validate input
@@ -213,7 +193,6 @@ export let loader: LoaderFunction = async ({ params }) => {
   }
 
   return json({
-    buildNumber,
     testProfileDetails,
     testProfiles,
   });
@@ -227,39 +206,8 @@ export let meta: MetaFunction = (args) => {
   };
 };
 
-interface ProfileAnalysisProps {
-  testId: string;
-}
-function ProfileAnalysis(props: ProfileAnalysisProps) {
-  const { testId } = props;
-
-  return (
-    <li>
-      <a href={`details/${encodeURIComponent(testId)}`}>{testId}</a>
-    </li>
-  );
-}
-
-export default function TestProfileAnalysis() {
-  const {
-    buildNumber,
-    testProfileDetails,
-    testProfiles,
-  } = useRouteData<AppData>();
-
-  const testIdsWithProfilingData = Array.from(
-    new Set(
-      testProfiles.reduce((testIdsDuplicated, { profile }) => {
-        return testIdsDuplicated.concat(
-          Object.keys(profile).filter((testId) => {
-            return profile[testId].length > 0;
-          })
-        );
-      }, [] as string[])
-    )
-  ).sort((a, b) => {
-    return a.localeCompare(b);
-  });
+export default function TestProfileLayout() {
+  const { testProfiles, testProfileDetails } = useRouteData<AppData>();
 
   return (
     <Fragment>
@@ -273,11 +221,9 @@ export default function TestProfileAnalysis() {
           {testProfileDetails.label}
         </a>
       </Heading>
-      <ol>
-        {testIdsWithProfilingData.map((testId) => {
-          return <ProfileAnalysis key={testId} testId={testId} />;
-        })}
-      </ol>
+      <Context.Provider value={{ testProfileDetails, testProfiles }}>
+        <Outlet />
+      </Context.Provider>
     </Fragment>
   );
 }

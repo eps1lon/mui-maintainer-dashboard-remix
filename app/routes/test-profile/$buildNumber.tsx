@@ -23,7 +23,7 @@ async function fetchCircleCIApiV2<Data>(endpoint: string): Promise<Data> {
   const url = `${apiEndpoint}${endpoint}`;
 
   const response = await fetch(url, {
-    headers: { "Circle-Token": process.env.CIRCLE_TOKEN },
+    headers: { "Circle-Token": String(process.env.CIRCLE_TOKEN) },
   });
   const json = await response.json();
   return json;

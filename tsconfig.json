@@ -3,6 +3,7 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
+    "noEmit": true,
     "target": "es2019",
     "strict": true,
     "skipLibCheck": true,

@@ -5,7 +5,8 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "start": "vercel dev"
+    "start": "vercel dev",
+    "test:types": "tsc -p tsconfig.json"
   },
   "dependencies": {
     "@remix-run/react": "^0.17.0",

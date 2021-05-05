@@ -11,8 +11,7 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - name: Install and cache dependencies
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Build Remix App
         run: |

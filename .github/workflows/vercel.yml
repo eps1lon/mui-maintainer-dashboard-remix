@@ -25,6 +25,7 @@ jobs:
         id: vercel-deploy-preview
         if: github.event_name == 'push' && github.ref != 'refs/heads/main'
         with:
+          github-comment: false
           github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
@@ -36,6 +37,7 @@ jobs:
         id: vercel-deploy-production
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
+          github-comment: false
           github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}

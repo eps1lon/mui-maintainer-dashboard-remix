@@ -333,7 +333,7 @@ interface AppData {
   targetSnapshot: SizeSnapshot;
 }
 
-export let loader: LoaderFunction = async ({ params, request, context }) => {
+export let loader: LoaderFunction = async ({ request }) => {
   const { searchParams } = new URL(request.url);
 
   const baseCommit = searchParams.get("baseCommit")!;

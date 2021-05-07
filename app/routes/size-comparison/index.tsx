@@ -1,7 +1,13 @@
 import { Fragment, memo, useCallback, useMemo, Suspense } from "react";
-import { useLocation } from "react-router";
 import prettyBytes from "pretty-bytes";
-import { json, LoaderFunction, useRouteData } from "remix";
+import { json, Response, useRouteData } from "remix";
+import type { HeadersFunction, LoaderFunction } from "remix";
+import { hash as baseHash } from "../../utils/crypto.server";
+
+function hash(data: string): string {
+  // TODO: How does versioning work? Should remix provide a version hash based on file input?
+  return baseHash(`v1-${data}`);
+}
 
 function Heading({
   children,
@@ -333,7 +339,7 @@ interface AppData {
   targetSnapshot: SizeSnapshot;
 }
 
-export let loader: LoaderFunction = async ({ params, request, context }) => {
+export let loader: LoaderFunction = async ({ request }) => {
   const { searchParams } = new URL(request.url);
 
   const baseCommit = searchParams.get("baseCommit")!;
@@ -341,16 +347,38 @@ export let loader: LoaderFunction = async ({ params, request, context }) => {
   const buildId = +searchParams.get("buildId")!;
   const prNumber = +searchParams.get("prNumber")!;
 
+  const etag = hash(`${baseCommit}--${baseRef}--${buildId}--${prNumber}`);
+  if (etag === request.headers.get("If-None-Match")) {
+    return new Response(undefined, { status: 304 });
+  }
+
   try {
     const [baseSnapshot, targetSnapshot] = await Promise.all([
       fetchS3SizeSnapshot(baseRef, baseCommit),
       fetchAzureSizeSnapshot(buildId),
     ]);
 
-    return json({ baseSnapshot, targetSnapshot, prNumber });
+    return json(
+      { baseSnapshot, targetSnapshot, prNumber },
+      {
+        headers: {
+          "Cache-Control": String(60 * 60 * 24),
+          ETag: etag,
+        },
+      }
+    );
   } catch {
     return json({ buildId }, { status: 404 });
   }
+};
+
+// The HTTP headers for the server rendered request, just use the cache control
+// from the loader.
+export let headers: HeadersFunction = ({ loaderHeaders }) => {
+  return {
+    "Cache-Control": loaderHeaders.get("Cache-Control")!,
+    ETag: loaderHeaders.get("ETag")!,
+  };
 };
 
 export default function SizeComparison() {

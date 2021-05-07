@@ -362,7 +362,7 @@ export let loader: LoaderFunction = async ({ request }) => {
       { baseSnapshot, targetSnapshot, prNumber },
       {
         headers: {
-          "Cache-Control": `max-age=${60 * 60 * 24}`,
+          "Cache-Control": `max-age=${60 * 60 * 24}, public`,
           ETag: etag,
         },
       }

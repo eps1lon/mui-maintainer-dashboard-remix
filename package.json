@@ -16,8 +16,8 @@
   "dependencies": {
     "@remix-run/cloudflare-workers": "^1.0.5",
     "@remix-run/react": "^1.0.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "18.0.0-beta-ca106a02d-20211125",
+    "react-dom": "18.0.0-beta-ca106a02d-20211125",
     "remix": "^1.0.5"
   },
   "devDependencies": {

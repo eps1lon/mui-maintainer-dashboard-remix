@@ -1,4 +1,6 @@
-import { hydrate } from "react-dom";
+import type {} from "react/next";
+import type {} from "react-dom/next";
+import { hydrateRoot } from "react-dom";
 import { RemixBrowser } from "remix";
 
-hydrate(<RemixBrowser />, document);
+hydrateRoot(document, <RemixBrowser />);

@@ -3076,6 +3076,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pretty-bytes@npm:^5.6.0":
+  version: 5.6.0
+  resolution: "pretty-bytes@npm:5.6.0"
+  checksum: 9c082500d1e93434b5b291bd651662936b8bd6204ec9fa17d563116a192d6d86b98f6d328526b4e8d783c07d5499e2614a807520249692da9ec81564b2f439cd
+  languageName: node
+  linkType: hard
+
 "pretty-ms@npm:^7.0.1":
   version: 7.0.1
   resolution: "pretty-ms@npm:7.0.1"
@@ -3311,6 +3318,7 @@ __metadata:
     esbuild: 0.13.14
     miniflare: 2.0.0-next.3
     prettier: ^2.5.0
+    pretty-bytes: ^5.6.0
     react: 18.0.0-beta-ca106a02d-20211125
     react-dom: 18.0.0-beta-ca106a02d-20211125
     remix: ^1.0.5

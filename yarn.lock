@@ -3067,6 +3067,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "prettier@npm:2.5.0"
+  bin:
+    prettier: bin-prettier.js
+  checksum: aad1b35b73e7c14596d389d90977a83dad0db689ba5802a0ef319c357b7867f55b885db197972aa6a56c30f53088c9f8e0d7f7930ae074c275a4e9cbe091d21d
+  languageName: node
+  linkType: hard
+
 "pretty-ms@npm:^7.0.1":
   version: 7.0.1
   resolution: "pretty-ms@npm:7.0.1"
@@ -3301,6 +3310,7 @@ __metadata:
     "@types/react-dom": ^17.0.9
     esbuild: 0.13.14
     miniflare: 2.0.0-next.3
+    prettier: ^2.5.0
     react: 18.0.0-beta-ca106a02d-20211125
     react-dom: 18.0.0-beta-ca106a02d-20211125
     remix: ^1.0.5

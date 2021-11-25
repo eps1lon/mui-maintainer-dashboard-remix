@@ -1,56 +1,32 @@
-# Remix Starter for Vercel
+# Welcome to Remix!
 
-Welcome to Remix!
-
-This is a starter repo for using [Remix](https://remix.run) with [Vercel](http://vercel.com/).
+- [Remix Docs](https://remix.run/docs)
 
 ## Development
 
-After cloning the repo, rename `.npmrc.example` to `.npmrc` and insert the license key you get from [logging in to your dashboard at remix.run](https://remix.run).
+You will be running two processes during development:
 
-> Note: if this is a public repo, you'll probably want to move the line with your key into `~/.npmrc` to keep it private.
-
-Then, install all dependencies using `npm`:
-
-```sh
-$ npm install
-```
-
-Your `@remix-run/*` dependencies will come from the Remix package registry.
-
-### First Run
-
-Before you can run the app in development you need link the project to a new vercel project on your account.
+- The Miniflare server (miniflare is a local environment for Cloudflare Workers)
+- The Remix development server
 
 ```sh
-$ vercel link
-```
+# in one tab, start the remix dev server
+$ npm run dev
 
-Follow the prompts, and when its done you should be able to get started:
-
-```sh
+# in another, start the miniflare server
 $ npm start
 ```
 
-This will start the Remix's build watcher and the vercel development server.
+Open up [http://127.0.0.1:8787](http://127.0.0.1:8787) and you should be ready to go!
 
-## Deploying to Production
+If you'd rather run everything in a single tab, you can look at [concurrently](https://npm.im/concurrently) or similar tools to run both processes in one tab.
 
-You will need to add your npmrc with your Remix token inside it to your environments:
+## Deployment
 
-```bash
-$ vercel env add plain NPM_RC development < .npmrc
-$ vercel env add plain NPM_RC preview < .npmrc
-$ vercel env add plain NPM_RC production < .npmrc
-```
+Use [wrangler](https://developers.cloudflare.com/workers/cli-wrangler) to build and deploy your application to Cloudflare Workers. If you don't have it yet, follow [the installation guide](https://developers.cloudflare.com/workers/cli-wrangler/install-update) to get it setup. Be sure to [authenticate the CLI](https://developers.cloudflare.com/workers/cli-wrangler/authentication) as well.
 
-Once that's done you can deploy!
+Once that's done, you should be able to deploy your app:
 
 ```sh
-$ npm run build
-$ vercel
+npm run deploy
 ```
-
-## Documentation
-
-Detailed documentation for Remix [is available at remix.run](https://remix.run/dashboard/docs).

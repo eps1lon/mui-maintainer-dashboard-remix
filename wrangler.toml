@@ -1,0 +1,18 @@
+name = "remix-cloudflare-workers"
+type = "javascript"
+
+zone_id = ""
+account_id = "ee8216e9916dd824a8e7a20e8a8c3fa3"
+route = ""
+workers_dev = true
+
+[site]
+bucket = "./public"
+entry-point = "."
+
+[build]
+command = "yarn run build:worker"
+watch_dir = "build/index.js"
+
+[build.upload]
+format="service-worker"

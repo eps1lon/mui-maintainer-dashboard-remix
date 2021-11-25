@@ -1,4 +1,4 @@
-import { unstable_createRoot } from "react-dom";
+import { hydrate } from "react-dom";
 import { RemixBrowser } from "remix";
 
-unstable_createRoot(document, { hydrate: true }).render(<RemixBrowser />);
+hydrate(<RemixBrowser />, document);

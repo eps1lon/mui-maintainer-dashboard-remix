@@ -1,10 +1,12 @@
-name = "remix-cloudflare-workers"
+name = "mui"
 type = "javascript"
 
 zone_id = ""
 account_id = "ee8216e9916dd824a8e7a20e8a8c3fa3"
 route = ""
 workers_dev = true
+
+compatibility_date = "2021-11-25"
 
 [site]
 bucket = "./public"

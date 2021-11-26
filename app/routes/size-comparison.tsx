@@ -23,7 +23,6 @@ const nullSnapshot = { parsed: 0, gzip: 0 };
 
 interface AppData {
 	main: [string, Size][];
-	pages: [string, Size][];
 }
 
 interface SizeSnapshot {
@@ -116,7 +115,6 @@ export let loader: LoaderFunction = async ({ request }) => {
 	const bundleKeys = Object.keys({ ...baseSnapshot, ...targetSnapshot });
 
 	const main: [string, Size][] = [];
-	const pages: [string, Size][] = [];
 	bundleKeys.forEach((bundle) => {
 		// current vs previous based off: https://github.com/mui-org/material-ui/blob/f1246e829f9c0fc9458ce951451f43c2f166c7d1/scripts/sizeSnapshot/loadComparison.js#L32
 		// if a bundle was added the change should be +inf
@@ -142,14 +140,10 @@ export let loader: LoaderFunction = async ({ request }) => {
 			},
 		];
 
-		if (bundle.startsWith("docs:")) {
-			pages.push(entry);
-		} else {
-			main.push(entry);
-		}
+		main.push(entry);
 	});
 
-	let data: AppData = { main, pages };
+	let data: AppData = { main };
 	return json(data, { headers });
 };
 
@@ -313,7 +307,7 @@ function ComparisonTable({
 }
 
 export default function SizeComparison() {
-	let { pages, main }: AppData = useLoaderData();
+	let { main }: AppData = useLoaderData();
 
 	return (
 		<Fragment>

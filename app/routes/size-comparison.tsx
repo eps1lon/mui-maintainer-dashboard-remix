@@ -97,6 +97,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 	headers.set("Cache-Control", "immutable, max-age=86400");
 
 	if (enableCaching) {
+		console.log({ etag, ifNoneMatch });
 		if (ifNoneMatch === etag) {
 			// No need to download every artifact again since they're immutable.
 			const response = new Response(null, { status: 304, headers });

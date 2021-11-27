@@ -1,8 +1,15 @@
 import { Fragment, ReactNode, useId, useMemo, useState } from "react";
-import { json, type LoaderFunction, useCatch, useLoaderData } from "remix";
+import {
+	json,
+	type HeadersFunction,
+	type LoaderFunction,
+	useCatch,
+	useLoaderData,
+} from "remix";
 import prettyBytes from "pretty-bytes";
 
 const enableCaching = true;
+const cacheEpoch = 1;
 
 interface Size {
 	parsed: {
@@ -74,7 +81,7 @@ async function fetchCircleCISizeSnapshot(
 
 async function digest(message: string): Promise<string> {
 	// https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest#converting_a_digest_to_a_hex_string
-	const msgUint8 = new TextEncoder().encode(message);
+	const msgUint8 = new TextEncoder().encode(`v${cacheEpoch}-${message}`);
 	const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);
 	const hashArray = Array.from(new Uint8Array(hashBuffer));
 	const hashHex = hashArray
@@ -83,6 +90,13 @@ async function digest(message: string): Promise<string> {
 	return hashHex;
 }
 
+export let headers: HeadersFunction = ({ loaderHeaders }) => {
+	return {
+		"Cache-Control": loaderHeaders.get("Cache-Control")!,
+		ETag: loaderHeaders.get("ETag")!,
+	};
+};
+
 export let loader: LoaderFunction = async ({ request }) => {
 	let params = new URL(request.url).searchParams;
 	let baseCommit = params.get("baseCommit")!;
@@ -90,14 +104,13 @@ export let loader: LoaderFunction = async ({ request }) => {
 	let prNumber = +params.get("prNumber")!;
 	let circleCIBuildNumber = +params.get("circleCIBuildNumber")!;
 
-	const ifNoneMatch = request.headers.get("if-none-match");
 	const etag = await digest(`v1-${params.toString()}`);
 	const headers = new Headers();
 	headers.set("ETag", etag);
 	headers.set("Cache-Control", "immutable, max-age=86400");
 
 	if (enableCaching) {
-		console.log({ etag, ifNoneMatch });
+		const ifNoneMatch = request.headers.get("if-none-match");
 		if (ifNoneMatch === etag) {
 			// No need to download every artifact again since they're immutable.
 			const response = new Response(null, { status: 304, headers });

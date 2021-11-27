@@ -8,6 +8,13 @@ export default function handleRequest(
 	responseHeaders: Headers,
 	remixContext: EntryContext
 ) {
+	if (responseStatusCode === 304) {
+		return new Response(null, {
+			headers: responseHeaders,
+			status: responseStatusCode,
+		});
+	}
+
 	let markup = renderToString(
 		<RemixServer context={remixContext} url={request.url} />
 	);
